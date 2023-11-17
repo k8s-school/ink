@@ -19,8 +19,6 @@ func main() {
 
 	args := flag.Args()
 
-	fmt.Printf("Args: %v\n", args)
-
 	if len(args) != 1 {
 		flag.Usage()
 	}
