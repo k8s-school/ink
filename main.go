@@ -15,8 +15,15 @@ func main() {
 	bluePtr := flag.Bool("b", false, "Print in blue")
 	yellowPtr := flag.Bool("y", false, "Print in yellow")
 
+	helpPtr := flag.Bool("h", false, "Print usage")
+
 	// Parse command line arguments
 	flag.Parse()
+
+	if *helpPtr {
+		flag.Usage()
+		os.Exit(0)
+	}
 
 	args := flag.Args()
 
