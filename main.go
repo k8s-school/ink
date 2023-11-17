@@ -32,6 +32,8 @@ func main() {
 	printFunc = color.New(color.FgGreen).SprintFunc()
 	if *redPtr {
 		printFunc = color.New(color.FgRed).SprintFunc()
+		fmt.Fprintln(os.Stderr, printFunc(text))
+		os.Exit(0)
 	} else if *greenPtr {
 		printFunc = color.New(color.FgGreen).SprintFunc()
 	} else if *bluePtr {
