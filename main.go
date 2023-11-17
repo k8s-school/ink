@@ -1,33 +1,45 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "github.com/fatih/color"
+	"flag"
+	"fmt"
+
+	"github.com/fatih/color"
 )
 
 func main() {
-    // Define command line arguments
-    textPtr := flag.String("text", "", "Text to print")
-    colorPtr := flag.String("color", "red", "Color of the text")
 
-    // Parse command line arguments
-    flag.Parse()
+	redPtr := flag.Bool("r", false, "Print in red")
+	greenPtr := flag.Bool("g", false, "Print in green (default)")
+	bluePtr := flag.Bool("b", false, "Print in blue")
+	yellowPtr := flag.Bool("y", false, "Print in yellow")
 
-    // Choose color
-    var printFunc func(a ...interface{}) string
-    switch *colorPtr {
-    case "red":
-        printFunc = color.New(color.FgRed).SprintFunc()
-    case "green":
-        printFunc = color.New(color.FgGreen).SprintFunc()
-    case "blue":
-        printFunc = color.New(color.FgBlue).SprintFunc()
-    default:
-        fmt.Println("Invalid color option. Choose from 'red', 'green', 'blue'.")
-        return
-    }
+	// Parse command line arguments
+	flag.Parse()
 
-    // Print colored text
-    fmt.Println(printFunc(*textPtr))
+	args := flag.Args()
+
+	fmt.Printf("Args: %v\n", args)
+
+	if len(args) != 1 {
+		flag.Usage()
+	}
+
+	text := args[0]
+
+	// Choose color
+	var printFunc func(a ...interface{}) string
+	printFunc = color.New(color.FgGreen).SprintFunc()
+	if *redPtr {
+		printFunc = color.New(color.FgRed).SprintFunc()
+	} else if *greenPtr {
+		printFunc = color.New(color.FgGreen).SprintFunc()
+	} else if *bluePtr {
+		printFunc = color.New(color.FgBlue).SprintFunc()
+	} else if *yellowPtr {
+		printFunc = color.New(color.FgYellow).SprintFunc()
+	}
+
+	// Print colored text
+	fmt.Println(printFunc(text))
 }
