@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/fatih/color"
 )
@@ -21,6 +22,7 @@ func main() {
 
 	if len(args) != 1 {
 		flag.Usage()
+		os.Exit(1)
 	}
 
 	text := args[0]
