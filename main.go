@@ -10,7 +10,7 @@ import (
 
 func main() {
 
-	redPtr := flag.Bool("r", false, "Print in red")
+	redPtr := flag.Bool("r", false, "Print in red to stderr and exit with error code 2")
 	greenPtr := flag.Bool("g", false, "Print in green (default)")
 	bluePtr := flag.Bool("b", false, "Print in blue")
 	yellowPtr := flag.Bool("y", false, "Print in yellow")
@@ -40,7 +40,7 @@ func main() {
 	if *redPtr {
 		printFunc = color.New(color.FgRed).SprintFunc()
 		fmt.Fprintln(os.Stderr, printFunc(text))
-		os.Exit(0)
+		os.Exit(2)
 	} else if *greenPtr {
 		printFunc = color.New(color.FgGreen).SprintFunc()
 	} else if *bluePtr {
