@@ -37,10 +37,10 @@ func main() {
 	// Choose color
 	var printFunc func(a ...interface{}) string
 	printFunc = color.New(color.FgGreen).SprintFunc()
+	w := os.Stdout
 	if *redPtr {
 		printFunc = color.New(color.FgRed).SprintFunc()
-		fmt.Fprintln(os.Stderr, printFunc(text))
-		os.Exit(2)
+		w = os.Stderr
 	} else if *greenPtr {
 		printFunc = color.New(color.FgGreen).SprintFunc()
 	} else if *bluePtr {
@@ -49,6 +49,5 @@ func main() {
 		printFunc = color.New(color.FgYellow).SprintFunc()
 	}
 
-	// Print colored text
-	fmt.Println(printFunc(text))
+	fmt.Fprintln(w, printFunc(text))
 }
